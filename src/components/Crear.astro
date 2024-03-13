@@ -1,84 +1,75 @@
-<div class="backgroundDiv" ref="backgroundDiv">
+<div class="backgroundDiv crearLiga" ref="backgroundDivCrear">
   <img src="https://i.gifer.com/YNXo.gif" alt="Background" />
-  <h1 class="titulo">GESTIONAR LIGA</h1>
+  <h1 class="titulo">CREAR LIGA</h1>
 </div>
 
 <script>
-  const backgroundDiv = document.querySelector('.backgroundDiv');
+  const backgroundDivCrear = document.querySelector('.crearLiga');
+  backgroundDivCrear.addEventListener('click', expandirYDesactivarCrear);
 
-  backgroundDiv.addEventListener('click', expandirYDesactivar);
-
-  function expandirYDesactivar() {
-    expandirDiv();
-    ocultarContenido();
-    backgroundDiv.removeEventListener('click', expandirYDesactivar); // Desactivar el evento de clic
+  function expandirYDesactivarCrear() {
+    expandirDivCrear();
+    ocultarContenidoCrear();
+    backgroundDivCrear.removeEventListener('click', expandirYDesactivarCrear); // Desactivar el evento de clic
   }
 
-  function expandirDiv() {
-    const expandido = backgroundDiv.classList.toggle('expandido');
+  function expandirDivCrear() {
+    const expandido = backgroundDivCrear.classList.toggle('expandido');
     if (expandido) {
       // Agregar un botón si está expandido
       const minimizarBtn = document.createElement('button');
       minimizarBtn.textContent = 'Minimizar';
       minimizarBtn.classList.add('minimizarBtn');
-      minimizarBtn.addEventListener('click', minimizarDiv);
-      backgroundDiv.appendChild(minimizarBtn);
+      minimizarBtn.addEventListener('click', minimizarDivCrear);
+      backgroundDivCrear.appendChild(minimizarBtn);
 
-      backgroundDiv.style.transform = 'scaleX(2)';
-      backgroundDiv.style.transformOrigin = 'left';
-      backgroundDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.7)'; // Fondo negro con opacidad
-      backgroundDiv.style.transition = 'transform 0.5s ease, background-color 0.5s ease, width 0.5s ease'; // Agregar transición para el cambio de ancho
+      backgroundDivCrear.style.transform = 'scaleX(2)';
+      backgroundDivCrear.style.transformOrigin = 'left';
+      backgroundDivCrear.style.backgroundColor = 'rgba(0, 0, 0, 0.7)'; // Fondo negro con opacidad
+      backgroundDivCrear.style.transition = 'transform 0.5s ease, background-color 0.5s ease, width 0.5s ease'; // Agregar transición para el cambio de ancho
     } else {
       // Eliminar el botón si se minimiza
-      const minimizarBtn = backgroundDiv.querySelector('.minimizarBtn');
+      const minimizarBtn = backgroundDivCrear.querySelector('.minimizarBtn');
       if (minimizarBtn) {
         minimizarBtn.remove();
       }
 
-      backgroundDiv.style.transform = 'scaleX(1)'; // Escala en X a 0.1 para cerrar el div
-      backgroundDiv.style.backgroundColor = 'transparent'; // Restaurar el fondo transparente
-      backgroundDiv.style.transition = 'transform 0.5s ease, background-color 0.5s ease, width 0.5s ease'; // Agregar transición para el cambio de ancho
+      
     }
   }
 
-  function ocultarContenido() {
-    backgroundDiv.classList.toggle('oculto');
+  function ocultarContenidoCrear() {
+    backgroundDivCrear.classList.toggle('oculto');
   }
 
-  function minimizarDiv() {
-  // Eliminar el botón si se minimiza
-  const minimizarBtn = backgroundDiv.querySelector('.minimizarBtn');
-  if (minimizarBtn) {
-    minimizarBtn.remove();
+  function minimizarDivCrear() {
+    // Eliminar el botón si se minimiza
+    const minimizarBtn = backgroundDivCrear.querySelector('.minimizarBtn');
+    if (minimizarBtn) {
+      minimizarBtn.remove();
+    }
+
+    backgroundDivCrear.classList.remove('expandido'); // Eliminar la clase 'expandido' para volver al tamaño estándar
+    ocultarContenidoCrear();
+
+    // Retrasar la restauración del tamaño y del color de fondo
+    setTimeout(() => {
+      backgroundDivCrear.style.transform = 'scaleX(1)'; // Escala en X a 0.1 para cerrar el div
+      backgroundDivCrear.style.backgroundColor = 'transparent'; // Restaurar el fondo transparente
+    }, 100); // 100 milisegundos de retraso
+
+    // Reactivar el evento de clic después de completar la transición
+    setTimeout(() => {
+      backgroundDivCrear.addEventListener('click', expandirYDesactivarCrear);
+    }, 500); // 500 milisegundos de retraso (corresponde a la duración de la transición)
   }
-
-  backgroundDiv.classList.remove('expandido'); // Eliminar la clase 'expandido' para volver al tamaño estándar
-  ocultarContenido();
-  
-  // Retrasar la restauración del tamaño y del color de fondo
-  setTimeout(() => {
-    backgroundDiv.style.transform = 'scaleX(1)'; // Escala en X a 0.1 para cerrar el div
-    backgroundDiv.style.backgroundColor = 'transparent'; // Restaurar el fondo transparente
-  }, 100); // 100 milisegundos de retraso
-  
-  // Reactivar el evento de clic después de completar la transición
-  setTimeout(() => {
-    backgroundDiv.addEventListener('click', expandirYDesactivar);
-  }, 500); // 500 milisegundos de retraso (corresponde a la duración de la transición)
-}
-
-
-
 </script>
-
-
-
 
 <style>
   .backgroundDiv {
     position: relative;
-    width: 10%;
-    height: 600px;
+    width: 100%; /* Cambiado a un valor fijo */
+    height: 280px; /* Cambiado a un valor fijo */
     background-size: cover;
     background-position: center;
     display: flex;
@@ -90,19 +81,19 @@
     cursor: pointer;
     transition: transform 0.5s ease, background-color 0.5s ease; /* Transición más lenta */
   }
-
+  
   .backgroundDiv.expandido {
-    width: 30%;
+    width: 100%;
+    z-index: 999; /* Dar prioridad visual cuando está expandido */
   }
-
+  
   .backgroundDiv img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-
     filter: blur(0);
   }
-
+  
   .backgroundDiv .titulo {
     position: absolute;
     color: orange;
@@ -111,19 +102,20 @@
     z-index: 1;
     transition: color 0.3s ease;
   }
-
+  
   .backgroundDiv.oculto img,
   .backgroundDiv.oculto .titulo {
     display: none;
   }
-
+  
   .backgroundDiv:hover img {
     filter: blur(5px);
   }
-
+  
   .backgroundDiv:hover .titulo {
     color: white;
   }
+  
   .minimizarBtn {
     position: absolute;
     bottom: 10px;
@@ -137,9 +129,8 @@
     border-radius: 4px;
     cursor: pointer;
   }
-
+  
   .minimizarBtn:hover {
     background-color: #555;
   }
-  
 </style>

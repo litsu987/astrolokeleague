@@ -1,14 +1,40 @@
 ---
 import Card from '../components/Gestionar.astro';
+import Crear from '../components/Crear.astro';
+import Unirse from '../components/Unirse.astro';
 ---
-  
+    
 
 <div class="centeredContainer">
   <div class="horizontalContainer">
+    <div class="verticalContainer">
+      <Crear />
+      <Unirse />
+    </div>
     <Card />
   </div>
 </div>
 
 <style>
-  /* Aquí puedes agregar estilos adicionales si es necesario */
+  .centeredContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .horizontalContainer {
+    display: flex;
+    justify-content: flex-start; /* Coloca los elementos al inicio del contenedor */
+    align-items: center;
+    width: 30%; /* Ajusta el ancho según sea necesario */
+    max-width: 4000px; /* Establece un ancho máximo para evitar que los elementos se estiren demasiado */
+    gap: 30px; /* Espacio entre los elementos */
+  }
+
+  .verticalContainer {
+    display: flex;
+    flex-direction: column; /* Coloca los elementos en una columna */
+   
+    gap: 30px; /* Espacio entre los elementos */
+  }
 </style>

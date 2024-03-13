@@ -1,0 +1,137 @@
+<div class="backgroundDiv unirseLiga" ref="backgroundDivUnirse">
+    <img src="https://i.gifer.com/YNXo.gif" alt="Background" />
+    <h1 class="titulo">UNIRSE A LA LIGA</h1>
+  </div>
+  
+  <script>
+    const backgroundDivUnirse = document.querySelector('.unirseLiga');
+    backgroundDivUnirse.addEventListener('click', expandirYDesactivarUnirse);
+  
+    function expandirYDesactivarUnirse() {
+      expandirDivUnirse();
+      ocultarContenidoUnirse();
+      backgroundDivUnirse.removeEventListener('click', expandirYDesactivarUnirse); // Desactivar el evento de clic
+    }
+  
+    function expandirDivUnirse() {
+      const expandido = backgroundDivUnirse.classList.toggle('expandido');
+      if (expandido) {
+        // Agregar un botón si está expandido
+        const minimizarBtn = document.createElement('button');
+        minimizarBtn.textContent = 'Minimizar';
+        minimizarBtn.classList.add('minimizarBtn');
+        minimizarBtn.addEventListener('click', minimizarDivUnirse);
+        backgroundDivUnirse.appendChild(minimizarBtn);
+  
+        backgroundDivUnirse.style.transform = 'scaleX(2)';
+        backgroundDivUnirse.style.transformOrigin = 'left';
+        backgroundDivUnirse.style.backgroundColor = 'rgba(0, 0, 0, 0.7)'; // Fondo negro con opacidad
+        backgroundDivUnirse.style.transition = 'transform 0.5s ease, background-color 0.5s ease, width 0.5s ease'; // Agregar transición para el cambio de ancho
+      } else {
+        // Eliminar el botón si se minimiza
+        const minimizarBtn = backgroundDivUnirse.querySelector('.minimizarBtn');
+        if (minimizarBtn) {
+          minimizarBtn.remove();
+        }
+  
+      }
+    }
+  
+    function ocultarContenidoUnirse() {
+      backgroundDivUnirse.classList.toggle('oculto');
+    }
+  
+    function minimizarDivUnirse() {
+      // Eliminar el botón si se minimiza
+      const minimizarBtn = backgroundDivUnirse.querySelector('.minimizarBtn');
+      if (minimizarBtn) {
+        minimizarBtn.remove();
+      }
+  
+      backgroundDivUnirse.classList.remove('expandido'); // Eliminar la clase 'expandido' para volver al tamaño estándar
+      ocultarContenidoUnirse();
+  
+      // Retrasar la restauración del tamaño y del color de fondo
+      setTimeout(() => {
+        backgroundDivUnirse.style.transform = 'scaleX(1)'; // Escala en X a 0.1 para cerrar el div
+        backgroundDivUnirse.style.backgroundColor = 'transparent'; // Restaurar el fondo transparente
+      }, 100); // 100 milisegundos de retraso
+  
+      // Reactivar el evento de clic después de completar la transición
+      setTimeout(() => {
+        backgroundDivUnirse.addEventListener('click', expandirYDesactivarUnirse);
+      }, 500); // 500 milisegundos de retraso (corresponde a la duración de la transición)
+    }
+  </script>
+  
+  <style>
+    /* Estilos específicos para el componente "UNIRSE A LA LIGA" */
+    .backgroundDiv.unirseLiga {
+      position: relative;
+      width: 100%; /* Cambiado a un valor fijo */
+      height: 280px; /* Cambiado a un valor fijo */
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 0 auto;
+      cursor: pointer;
+      transition: transform 0.5s ease, background-color 0.5s ease; /* Transición más lenta */
+    }
+    
+    .backgroundDiv.expandido {
+        width: 100%;
+        z-index: 999; /* Dar prioridad visual cuando está expandido */
+    }
+    
+    .backgroundDiv.unirseLiga img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(0);
+    }
+    
+    .backgroundDiv.unirseLiga .titulo {
+      position: absolute;
+      color: orange;
+      font-family: 'Arial', sans-serif;
+      font-size: 2rem;
+      z-index: 1;
+      transition: color 0.3s ease;
+    }
+    
+    .backgroundDiv.unirseLiga.oculto img,
+    .backgroundDiv.unirseLiga.oculto .titulo {
+      display: none;
+    }
+    
+    .backgroundDiv.unirseLiga:hover img {
+      filter: blur(5px);
+    }
+    
+    .backgroundDiv.unirseLiga:hover .titulo {
+      color: white;
+    }
+    
+    .minimizarBtn {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: none; /* Ocultar por defecto */
+      padding: 8px 16px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .minimizarBtn:hover {
+      background-color: #555;
+    }
+  </style>
+  
