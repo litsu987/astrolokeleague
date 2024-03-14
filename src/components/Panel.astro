@@ -1,0 +1,169 @@
+<div class="backgroundDiv userPanel" ref="backgroundDivUserPanel">
+    <img src="https://i.gifer.com/YNXo.gif" alt="Background" />
+    <h1 class="title">PANEL DE USUARIO</h1>
+  </div>
+  
+  <script>
+    const backgroundDivUserPanel = document.querySelector('.userPanel');
+    backgroundDivUserPanel.addEventListener('click', expandAndDeactivateUserPanel);
+  
+    function expandAndDeactivateUserPanel() {
+      expandUserPanel();
+      hideUserPanelContent();
+      backgroundDivUserPanel.removeEventListener('click', expandAndDeactivateUserPanel); // Desactivar el evento de clic
+    }
+  
+    function expandUserPanel() {
+      const expanded = backgroundDivUserPanel.classList.toggle('expanded');
+      if (expanded) {
+        // Agregar un botón si está expandido
+        const minimizeBtn = document.createElement('button');
+        minimizeBtn.textContent = 'Minimizar';
+        minimizeBtn.classList.add('minimizeBtn');
+        minimizeBtn.addEventListener('click', minimizeUserPanel);
+        backgroundDivUserPanel.appendChild(minimizeBtn);
+  
+        backgroundDivUserPanel.style.backgroundColor = 'rgba(0, 0, 0, 0.7)'; // Fondo negro con opacidad
+      } else {
+        // Eliminar el botón si se minimiza
+        const minimizeBtn = backgroundDivUserPanel.querySelector('.minimizeBtn');
+        if (minimizeBtn) {
+          minimizeBtn.remove();
+        }
+  
+        backgroundDivUserPanel.style.backgroundColor = 'transparent'; // Restaurar el fondo transparente
+      }
+    }
+  
+    function hideUserPanelContent() {
+      backgroundDivUserPanel.classList.toggle('hidden');
+    }
+  
+    function minimizeUserPanel() {
+      const minimizeBtn = backgroundDivUserPanel.querySelector('.minimizeBtn');
+  
+      if (minimizeBtn) {
+        minimizeBtn.remove();
+      }
+  
+      backgroundDivUserPanel.classList.add('shrinking'); // Agregar clase para activar la animación
+  
+      // Esperar a que termine la animación de encogimiento antes de eliminar la clase 'expanded'
+      setTimeout(() => {
+        backgroundDivUserPanel.classList.remove('expanded'); // Eliminar la clase 'expanded' para volver al tamaño estándar
+        backgroundDivUserPanel.classList.remove('shrinking'); // Eliminar clase para detener la animación
+        hideUserPanelContent();
+        
+        // Reactivar el evento de clic después de completar la animación
+        setTimeout(() => {
+          backgroundDivUserPanel.addEventListener('click', expandAndDeactivateUserPanel);
+        }, 500); // Espera 1 segundo, que es la duración de la animación de encogimiento
+      }, 1000); // Tiempo de la animación de encogimiento en milisegundos (corresponde a la duración de la transición)
+    }
+  </script>
+  
+  <style>
+  .userPanel {
+    position: fixed;
+    width: 15%; /* Cambiado a un valor fijo */
+    height: 600px; /* Cambiado a un valor fijo */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 800px;
+    cursor: pointer;
+    transition: background-color 0.5s ease; /* Transición más lenta */
+    transition: width 1s ease, height 1s ease, left 1s ease, top 1s ease; /* Agregar transición para el cambio de tamaño y posición */
+  }
+  
+  /* Define la animación */
+  @keyframes expand {
+    0% {
+      width: 10%; /* Comienza con el tamaño original */
+      height: 600px;
+    }
+    100% {
+      width: 80vw; /* Termina con el tamaño completo del viewport */
+      height: 80vh;
+      transform: translate(-50%); /* Mantén el centrado */
+    }
+  }
+  
+  .userPanel.expanded {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    animation: expand 1s cubic-bezier(1, 1, 1, 1) forwards;
+  }
+  
+  @keyframes shrink {
+    0% {
+      width: 80vw; /* Termina con el tamaño completo del viewport */
+      height: 80vh;
+      transform: translateX(-50%);
+    }
+    100% {
+      width: 1%; /* Termina en el tamaño deseado */
+      height: 60vh;
+      transform: translateX(-4%);
+    }
+  }
+  
+  /* Aplica la animación al elemento */
+  .userPanel.shrinking {
+    animation: shrink 2s cubic-bezier(0.4, 0, 0.2, 1) forwards; /* Duración de 0.5 segundos y cubic-bezier personalizado */
+  }
+  
+  .userPanel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(0);
+  }
+  
+  .userPanel .title {
+    position: absolute;
+    color: orange;
+    font-family: 'Arial', sans-serif;
+    font-size: 2rem;
+    z-index: 1;
+    transition: color 0.3s ease;
+  }
+  
+  .userPanel.hidden img,
+  .userPanel.hidden .title {
+    display: none;
+  }
+  
+  .userPanel:hover img {
+    filter: blur(5px);
+  }
+  
+  .userPanel:hover .title {
+    color: white;
+  }
+  
+  .minimizeBtn {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none; /* Ocultar por defecto */
+    padding: 8px 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .minimizeBtn:hover {
+    background-color: #555;
+  }
+  </style>
+  

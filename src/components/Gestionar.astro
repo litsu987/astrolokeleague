@@ -40,26 +40,33 @@
   }
 
   function minimizarDivGestionar() {
-    // Eliminar el botón si se minimiza
-    const minimizarBtn = backgroundDivGestionar.querySelector('.minimizarBtn');
-    if (minimizarBtn) {
-      minimizarBtn.remove();
-    }
+  const minimizarBtn = backgroundDivGestionar.querySelector('.minimizarBtn');
 
+  if (minimizarBtn) {
+    minimizarBtn.remove();
+  }
+
+  backgroundDivGestionar.classList.add('encogiendo'); // Agregar clase para activar la animación
+
+  // Esperar a que termine la animación de encogimiento antes de eliminar la clase 'expandido'
+  setTimeout(() => {
     backgroundDivGestionar.classList.remove('expandido'); // Eliminar la clase 'expandido' para volver al tamaño estándar
+    backgroundDivGestionar.classList.remove('encogiendo'); // Eliminar clase para detener la animación
     ocultarContenidoGestionar();
-
-    // Reactivar el evento de clic después de completar la transición
+    
+    // Reactivar el evento de clic después de completar la animación
     setTimeout(() => {
       backgroundDivGestionar.addEventListener('click', expandirYDesactivarGestionar);
-    }, 500); // 500 milisegundos de retraso (corresponde a la duración de la transición)
-  }
+    }, 500); // Espera 1 segundo, que es la duración de la animación de encogimiento
+  }, 1000); // Tiempo de la animación de encogimiento en milisegundos (corresponde a la duración de la transición)
+}
+
 </script>
 
 <style>
 .backgroundDiv {
-  position: relative;
-  width: 40%; /* Cambiado a un valor fijo */
+  position: fixed;
+  width: 15%; /* Cambiado a un valor fijo */
   height: 600px; /* Cambiado a un valor fijo */
   background-size: cover;
   background-position: center;
@@ -68,21 +75,56 @@
   align-items: center;
   border-radius: 20px;
   overflow: hidden;
-  margin: 0 auto;
+  margin: 400px;
   cursor: pointer;
   transition: background-color 0.5s ease; /* Transición más lenta */
-  transition: width 1s ease, height 1s ease, left 1s ease, top 1s ease; /* Agregar transición para el cambio de tamaño y posición */
+  
+}
+
+/* Define la animación */
+/* Define la animación */
+@keyframes expansion {
+  0% {
+    width: 10%; /* Comienza con el tamaño original */
+    height: 600px;
+
+  }
+  100% {
+    width: 80vw; /* Termina con el tamaño completo del viewport */
+    height: 80vh;
+    transform: translate(-40%); /* Mantén el centrado */
+  }
 }
 
 .backgroundDiv.expandido {
-  position: fixed; /* Posición fija para que ocupe toda la pantalla */
-  width: 170vh; /* Ancho de la ventana del navegador */
-  z-index: 999; /* Dar prioridad visual cuando está expandido */
-  left: 50%; /* Centrar horizontalmente inicialmente */
-  top: 31.5%; /* Centrar verticalmente inicialmente */
-  transform: translate(-50%, -50%); /* Centrar exactamente */
-  transition: width 1s ease, height 1s ease, left 1s ease, top 1s ease; /* Agregar transición para el cambio de tamaño y posición */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  animation: expansion 1s cubic-bezier(1, 1, 1, 1) forwards;
 }
+
+
+@keyframes encogimiento {
+  0% {
+    width: 80vw; /* Termina con el tamaño completo del viewport */
+    height: 80vh;
+    transform: translateX(-40%);
+  }
+  100% {
+    width: 1%; /* Termina en el tamaño deseado */
+    height: 60vh;
+    transform: translateX(-4%);
+  }
+}
+
+
+/* Aplica la animación al elemento */
+.backgroundDiv.encogiendo {
+  animation: encogimiento 2s cubic-bezier(0.4, 0, 0.2, 1) forwards; /* Duración de 0.5 segundos y cubic-bezier personalizado */
+}
+
+
 
 
 .backgroundDiv img {

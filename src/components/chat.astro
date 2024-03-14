@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #movable {
+      width: 160vh; /* Ancho del div relativo a 160% del viewport height */
+      height: 80vh; /* Alto del div relativo al 80% del viewport height */
+      background-color: blue;
+      position: fixed;
+      cursor: pointer;
+      left: -80vw; /* Inicialmente oculto a la derecha */
+      top: 50%; /* Centra verticalmente */
+      transform: translateY(-50%);
+      transition: left 0.3s ease; /* Agrega una transición para la propiedad 'left' */
+      border-radius: 10px; /* Redondea las esquinas del div */
+    }
+  </style>
+</head>
+<body>
+
+<div id="movable"></div>
+
+<script>
+  const movable = document.getElementById('movable');
+  let isRight = false;
+
+  movable.addEventListener('click', () => {
+    if (!isRight) {
+      movable.style.left = 'calc(40vw - 80vh)'; /* Muestra parte del div */
+      isRight = true;
+    } else {
+      movable.style.left = '-80vw'; /* Oculta a la derecha */
+      isRight = false;
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -2,6 +2,8 @@
 import Card from '../components/Gestionar.astro';
 import Crear from '../components/Crear.astro';
 import Unirse from '../components/Unirse.astro';
+import Panel from '../components/Panel.astro';
+import Chat2 from '../components/chat.astro';
 ---
     
 
@@ -12,21 +14,26 @@ import Unirse from '../components/Unirse.astro';
       <Unirse />
     </div>
     <Card />
+    <Panel />
   </div>
+  <Chat2 />
 </div>
 
 <style>
   .centeredContainer {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    padding-top: 200px; /* Ajusta el espacio desde la parte superior de la pantalla */
   }
+
+
 
   .horizontalContainer {
     display: flex;
     justify-content: flex-start; /* Coloca los elementos al inicio del contenedor */
     align-items: center;
-    width: 30%; /* Ajusta el ancho según sea necesario */
+    width: 60%; /* Ajusta el ancho según sea necesario */
     max-width: 4000px; /* Establece un ancho máximo para evitar que los elementos se estiren demasiado */
     gap: 30px; /* Espacio entre los elementos */
   }
@@ -34,7 +41,6 @@ import Unirse from '../components/Unirse.astro';
   .verticalContainer {
     display: flex;
     flex-direction: column; /* Coloca los elementos en una columna */
-   
-    gap: 30px; /* Espacio entre los elementos */
+    gap: 40px; /* Espacio entre los elementos */
   }
 </style>
