@@ -1,39 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html style="height: 100%; margin: 0;">
+
 <head>
-  <style>
-    #movable {
-      width: 160vh; /* Ancho del div relativo a 160% del viewport height */
-      height: 80vh; /* Alto del div relativo al 80% del viewport height */
-      background-color: blue;
-      position: fixed;
-      cursor: pointer;
-      left: -80vw; /* Inicialmente oculto a la derecha */
-      top: 50%; /* Centra verticalmente */
-      transform: translateY(-50%);
-      transition: left 0.3s ease; /* Agrega una transición para la propiedad 'left' */
-      border-radius: 10px; /* Redondea las esquinas del div */
-    }
-  </style>
+    <style>
+        body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* Evita que haya desplazamiento vertical */
+            background-color: #f0f0f0; /* Cambia el color de fondo del body a gris */
+        }
+
+        #movable {
+            width: 160vh; /* Ancho del div relativo a 160% del viewport height */
+            height: 80vh; /* Alto del div relativo al 80% del viewport height */
+            background-color: lightgray;
+            border: 10px solid #555; /* Borde gris oscuro con un grosor de 10px */
+            position: fixed;
+            cursor: pointer;
+            left: -80vw; /* Inicialmente oculto a la derecha */
+            top: 50%; /* Centra verticalmente */
+            transform: translateY(-50%);
+            transition: left 0.3s ease; /* Agrega una transición para la propiedad 'left' */
+            border-radius: 10px; /* Redondea las esquinas del div */
+            z-index: 999; /* Asegura que esté encima de otros elementos */
+        }
+    </style>
 </head>
-<body>
 
-<div id="movable"></div>
+<body style="height: 100%; margin: 0;">
 
-<script>
-  const movable = document.getElementById('movable');
-  let isRight = false;
+    <div id="movable"></div>
 
-  movable.addEventListener('click', () => {
-    if (!isRight) {
-      movable.style.left = 'calc(40vw - 80vh)'; /* Muestra parte del div */
-      isRight = true;
-    } else {
-      movable.style.left = '-80vw'; /* Oculta a la derecha */
-      isRight = false;
-    }
-  });
-</script>
+    <script>
+        const movable = document.getElementById('movable');
+        let isRight = false;
+
+        movable.addEventListener('click', () => {
+            if (!isRight) {
+                movable.style.left = 'calc(40vw - 80vh)'; /* Muestra parte del div */
+                isRight = true;
+            } else {
+                movable.style.left = '-80vw'; /* Oculta a la derecha */
+                isRight = false;
+            }
+        });
+    </script>
 
 </body>
+
 </html>
