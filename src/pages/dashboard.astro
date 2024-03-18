@@ -5,10 +5,9 @@ import Unirse from '../components/Unirse.astro';
 import Panel from '../components/Panel.astro';
 import Chat2 from '../components/chat.astro';
 ---
-    
 
 <div class="centeredContainer">
-  <div class="horizontalContainer">
+  <div class="gridContainer">
     <div class="verticalContainer">
       <Crear />
       <Unirse />
@@ -21,26 +20,23 @@ import Chat2 from '../components/chat.astro';
 
 <style>
   .centeredContainer {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    padding-top: 180px; /* Ajusta el espacio desde la parte superior de la pantalla */
+    display: grid;
+    place-items: center;
+    padding-top: 180px;
   }
 
-
-
-  .horizontalContainer {
-    display: flex;
-    justify-content: flex-start; /* Coloca los elementos al inicio del contenedor */
-    align-items: center;
-    width: 60%; /* Ajusta el ancho según sea necesario */
-    max-width: 4000px; /* Establece un ancho máximo para evitar que los elementos se estiren demasiado */
-    gap: 30px; /* Espacio entre los elementos */
+  .gridContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 4000px;
   }
 
   .verticalContainer {
-    display: flex;
-    flex-direction: column; /* Coloca los elementos en una columna */
-    gap: 40px; /* Espacio entre los elementos */
+    display: grid;
+    gap: 3.5vh;
+    justify-items: center;
   }
+
+  /* Assuming Card, Panel, and Chat2 components will render with their own styling */
 </style>

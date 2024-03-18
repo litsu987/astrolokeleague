@@ -65,20 +65,22 @@
 
 <style>
 .backgroundDiv {
-  position: fixed;
-  width: 15%; /* Cambiado a un valor fijo */
-  height: 600px; /* Cambiado a un valor fijo */
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  overflow: hidden;
-  margin: 400px;
-  cursor: pointer;
-  transition: background-color 0.5s ease; /* Transición más lenta */
+  position: absolute;
+      width: 30vh; /* Cambiado a un valor fijo */
+      height: 600px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-left: 40vh;
+      cursor: pointer;
+      transition: background-color 0.5s ease, width 1s ease, height 1s ease, left 1s ease, top 1s ease; /* Transiciones múltiples */
+      border: 8px solid grey; /* Añadir borde gris */
   
+}
+
+.backgroundDiv:hover {
+  transform: scale(1.1); /* Aplicar un aumento del 10% al tamaño al pasar el cursor */
 }
 
 /* Define la animación */

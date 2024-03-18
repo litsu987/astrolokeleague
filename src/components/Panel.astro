@@ -1,4 +1,4 @@
-<div class="backgroundDiv userPanel" ref="backgroundDivUserPanel">
+<div class="backgroundDiv userPanel" >
     <img src="../../public/aura.gif" alt="Background" />
     <h1 class="title">PANEL DE USUARIO</h1>
   </div>
@@ -64,21 +64,22 @@
   
   <style>
   .userPanel {
-    position: fixed;
-    width: 15%; /* Cambiado a un valor fijo */
-    height: 600px; /* Cambiado a un valor fijo */
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    overflow: hidden;
-    margin: 800px;
-    cursor: pointer;
-    transition: background-color 0.5s ease; /* Transición más lenta */
-    transition: width 1s ease, height 1s ease, left 1s ease, top 1s ease; /* Agregar transición para el cambio de tamaño y posición */
+      position: absolute;
+      width: 30vh; /* Cambiado a un valor fijo */
+      height: 600px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-left:75vh;
+      cursor: pointer;
+      transition: background-color 0.5s ease, width 1s ease, height 1s ease, left 1s ease, top 1s ease; /* Transiciones múltiples */
+      border: 8px solid grey; /* Añadir borde gris */
   }
+.backgroundDiv:hover {
+  transform: scale(1.1); /* Aplicar un aumento del 10% al tamaño al pasar el cursor */
+}
+
   
   /* Define la animación */
   @keyframes expand {
